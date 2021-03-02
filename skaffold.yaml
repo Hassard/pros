@@ -16,6 +16,14 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
+    - image: rhassard/pros-corporate
+      context: corporate
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.ts'
+            dest: .
     - image: rhassard/pros-client
       context: client
       docker:

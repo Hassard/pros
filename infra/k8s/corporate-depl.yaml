@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: corporate-depl
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: corporate
+  template:
+    metadata:
+      labels:
+        app: corporate
+    spec:
+      containers:
+        - name: corporate
+          image: rhassard/pros-corporate:latest
+          env: 
+            - name: MONGO_URI
+              value: 'mongodb://corporate-mongo-srv:27017/corporate'
+            - name: JWT_KEY
+              valueFrom: 
+                secretKeyRef:
+                  name: jwt-secret
+                  key: JWT_KEY
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: corporate-srv
+spec:
+  selector:
+    app: corporate
+  ports:
+    - name: corporate
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
