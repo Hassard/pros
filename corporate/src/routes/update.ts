@@ -15,9 +15,10 @@ router.put(
       .not()
       .isEmpty()
       .withMessage('Title is required'),
-    body('price')
-      .isFloat({ gt: 0 })
-      .withMessage('Price must be provided and must be greater than 0')
+    body('content')
+    .not()
+    .isEmpty()
+    .withMessage('Content is required')
   ],
   validateRequest,
   async (req: Request, res: Response) => {
@@ -33,7 +34,7 @@ router.put(
 
     corporate.set({
       title: req.body.title,
-      price: req.body.price
+      content: req.body.content
     });
     await corporate.save();
     new CorporateUpdatedPublisher(natsWrapper.client).publish({

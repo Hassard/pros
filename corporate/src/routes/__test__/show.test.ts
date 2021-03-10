@@ -2,32 +2,32 @@ import request from 'supertest';
 import { app } from '../../app';
 import mongoose from 'mongoose';
 
-it('returns a 404 if the ticket is not found', async () => {
+it('returns a 404 if the corporate is not found', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
 
   const response = await request(app)
-    .get(`/api/tickets/${id}`)
+    .get(`/api/corporate/${id}`)
     .send()
     .expect(404);
 });
 
-it('returns the ticket if the ticket is found', async () => {
-  const title = 'concert';
-  const price = 20;
+it('returns the corporate if the corporate is found', async () => {
+  const title = 'New one';
+  const content = 'asdasd';
 
   const response = await request(app)
-    .post('/api/tickets')
+    .post('/api/corporate')
     .set('Cookie', global.signin())
     .send({
-      title, price
+      title, content
     })
     .expect(201);
 
-  const ticketResponse = await request(app)
-    .get(`/api/tickets/${response.body.id}`)
+  const corporateResponse = await request(app)
+    .get(`/api/corporate/${response.body.id}`)
     .send()
     .expect(200);
 
-  expect(ticketResponse.body.title).toEqual(title);
-  expect(ticketResponse.body.price).toEqual(price);
+  expect(corporateResponse.body.title).toEqual(title);
+  expect(corporateResponse.body.content).toEqual(content);
 });
