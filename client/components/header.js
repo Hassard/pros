@@ -4,6 +4,7 @@ const Header = ({ currentUser }) => {
   const links = [
     !currentUser && { label: 'Sign Up', href: '/auth/signup' },
     !currentUser && { label: 'Sign In', href: '/auth/signin' },
+    currentUser && currentUser.role === 'owner' && { label: 'Churches', href: '/churches/' },
     currentUser && { label: 'Sign Out', href: '/auth/signout' }
   ]
     .filter(linkConfig => linkConfig)

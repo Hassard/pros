@@ -6,6 +6,8 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@rhtickets/common';
+import { indexChurchRouter } from './routes/index';
+import { createChurchRouter } from './routes/new';
 
 const app = express();
 app.set('trust proxy', true);
@@ -19,6 +21,8 @@ app.use(
   })
 );
 app.use(currentUser);
+app.use(indexChurchRouter);
+app.use(createChurchRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();
