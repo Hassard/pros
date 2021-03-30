@@ -1,28 +1,28 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: corporate-mongo-depl
+  name: churches-mongo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: corporate-mongo
+      app: churches-mongo
   template:
     metadata:
       labels:
-        app: corporate-mongo
+        app: churches-mongo
     spec: 
       containers:
-        - name: corporate-mongo
+        - name: churches-mongo
           image: mongo
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: corporate-mongo-srv
+  name: churches-mongo-srv
 spec:
   selector:
-    app: corporate-mongo
+    app: churches-mongo
   ports:
     - name: db
       protocol: TCP

@@ -14,9 +14,9 @@ spec:
             backend: 
               serviceName: auth-srv
               servicePort: 3000
-          - path: /api/corporate/?(.*)
+          - path: /api/churches/?(.*)
             backend: 
-              serviceName: corporate-srv
+              serviceName: churches-srv
               servicePort: 3000
           - path: /?(.*)
             backend:

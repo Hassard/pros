@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: corporate-depl
+  name: churches-depl
 spec:
   replicas: 1
   selector: 
     matchLabels:
-      app: corporate
+      app: churches
   template:
     metadata:
       labels:
-        app: corporate
+        app: churches
     spec:
       containers:
-        - name: corporate
-          image: rhassard/pros-corporate:latest
+        - name: churches
+          image: rhassard/churches:latest
           env: 
             - name: MONGO_URI
-              value: 'mongodb://corporate-mongo-srv:27017/corporate'
+              value: 'mongodb://churches-mongo-srv:27017/churches'
             - name: JWT_KEY
               valueFrom: 
                 secretKeyRef:
@@ -35,12 +35,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: corporate-srv
+  name: churches-srv
 spec:
   selector:
-    app: corporate
+    app: churches
   ports:
-    - name: corporate
+    - name: churches
       protocol: TCP
       port: 3000
       targetPort: 3000

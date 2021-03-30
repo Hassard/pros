@@ -6,10 +6,6 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@rhtickets/common';
-import { createCorporateRouter } from './routes/new';
-import { showCorporateRouter } from './routes/show';
-import { indexCorporateRouter } from './routes/index';
-import { updateCorporateRouter } from './routes/update';
 
 const app = express();
 app.set('trust proxy', true);
@@ -23,10 +19,6 @@ app.use(
   })
 );
 app.use(currentUser);
-app.use(createCorporateRouter);
-app.use(showCorporateRouter);
-app.use(indexCorporateRouter);
-app.use(updateCorporateRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();

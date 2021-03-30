@@ -16,8 +16,8 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: rhassard/pros-corporate
-      context: corporate
+    - image: rhassard/churches
+      context: churches
       docker:
         dockerfile: Dockerfile
       sync:
