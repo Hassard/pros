@@ -2,21 +2,21 @@ import { useState } from 'react';
 import Router from 'next/router';
 import useRequest from '../../hooks/use-request';
 
-const Signup = () => {
+const Signup = ({ churches }) => {
   const roles = [
     { label: "Owner", value: "owner" },
     { label: "Church Owner", value: "church_owner" },
     { label: "Member", value: "member" }
   ];
-  console.log(roles[0]['value']);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(roles[0]['value']);
+  const [churchId, setChurchId] = useState('');
   const { doRequest, errors } = useRequest({
     url: '/api/users/signup',
     method: 'post',
     body: {
-      email, password, role
+      email, password, role, churchId
     },
     onSuccess: () => Router.push('/')
   });
@@ -46,10 +46,25 @@ const Signup = () => {
           ))}
         </select>
       </div>
+      <div className="form-group">
+        <label>Church</label>
+        <select onChange={e => setChurchId(e.currentTarget.value)} className="form-control">
+          <option key="0" value="">None</option>
+          {churches.map(({ id, name }) => (
+            <option key={id} value={id}>{name}</option>
+          ))}
+        </select>
+      </div>
       {errors}
       <button className="btn btn-primary">Sign Up</button>
     </form>
   );
+};
+
+Signup.getInitialProps = async (context, client) => {
+  const { data } = await client.get('/api/churches');
+
+  return { churches: data };
 };
 
 export default Signup;

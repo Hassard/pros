@@ -21,6 +21,7 @@ interface UserDoc extends mongoose.Document {
   email: string;
   password: string;
   role: string;
+  churchId?: string;
 }
 
 const userSchema = new mongoose.Schema({
@@ -33,6 +34,10 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   role: {
+    type: String,
+    required: false
+  },
+  churchId: {
     type: String,
     required: false
   }
