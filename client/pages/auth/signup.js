@@ -38,7 +38,7 @@ const Signup = () => {
         <label>Password</label>
         <input value={password} onChange={e => setPassword(e.target.value)} type="password" className="form-control" />
       </div>
-      <div>
+      <div className="form-group">
         <label>Role</label>
         <select onChange={e => setRole(e.currentTarget.value)} className="form-control">
           {roles.map(({ label, value }) => (

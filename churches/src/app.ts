@@ -8,6 +8,8 @@ import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError, currentUser } from '@rhtickets/common';
 import { indexChurchRouter } from './routes/index';
 import { createChurchRouter } from './routes/new';
+import { updateChurchRouter } from './routes/update';
+import { showChurchRouter } from './routes/show';
 
 const app = express();
 app.set('trust proxy', true);
@@ -23,6 +25,8 @@ app.use(
 app.use(currentUser);
 app.use(indexChurchRouter);
 app.use(createChurchRouter);
+app.use(updateChurchRouter);
+app.use(showChurchRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();
