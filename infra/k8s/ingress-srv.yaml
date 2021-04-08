@@ -18,7 +18,18 @@ spec:
             backend: 
               serviceName: churches-srv
               servicePort: 3000
+          - path: /api/corporates/?(.*)
+            backend: 
+              serviceName: corporates-srv
+              servicePort: 3000
           - path: /?(.*)
             backend:
               serviceName: client-srv
               servicePort: 3000
+    - host: pros.app
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: app-srv
+              servicePort: 8100

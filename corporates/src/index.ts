@@ -5,7 +5,8 @@ import { ChurchCreatedListener } from './events/listeners/church-created-listene
 import { ChurchUpdatedListener } from './events/listeners/church-updated-listener';
 
 const start = async () => {
-  console.log('Starting up ... ');
+  console.log('Starting .... ');
+  
   //Check that environment variable is defined early in the process
   if (!process.env.JWT_KEY) {
     throw new Error('JWT_KEY must be defined');
@@ -39,9 +40,9 @@ const start = async () => {
     await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true
+      useCreateIndex: true,
     });
-    console.log('Connected to MongoDB');
+    console.log('Connected to MongoDb');
   } catch (err) {
     console.error(err);
   }
@@ -49,6 +50,6 @@ const start = async () => {
   app.listen(3000, () => {
     console.log('Listening on port 3000');
   });
-}
+};
 
 start();

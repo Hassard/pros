@@ -4,6 +4,7 @@ const Header = ({ currentUser }) => {
   const links = [
     !currentUser && { label: 'Sign Up', href: '/auth/signup' },
     !currentUser && { label: 'Sign In', href: '/auth/signin' },
+    currentUser && currentUser.churchId && { label: 'Prayer Chain', href: '/corporates/' },
     currentUser && currentUser.role === 'owner' && { label: 'Churches', href: '/churches/' },
     currentUser && { label: 'Sign Out', href: '/auth/signout' }
   ]

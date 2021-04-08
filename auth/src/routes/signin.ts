@@ -36,7 +36,8 @@ router.post('/api/users/signin',
     const userJwt = jwt.sign({
       id: existingUser.id,
       email: existingUser.email,
-      role: existingUser.role
+      role: existingUser.role,
+      churchId: existingUser.churchId
     }, process.env.JWT_KEY!);
 
     //Store it on session object

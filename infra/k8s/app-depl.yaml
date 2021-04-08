@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata: 
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: rhassard/pros-app:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-srv
+spec:
+  selector:
+    app: app
+  ports:
+    - name: app
+      protocol: TCP
+      port: 8100
+      targetPort: 8100
