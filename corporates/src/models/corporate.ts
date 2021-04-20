@@ -4,6 +4,8 @@ import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 interface CorporateAttrs {
   title: string;
   content: string;
+  category: string;
+  active: boolean;
   userId: string;
   churchId: string;
 }
@@ -11,6 +13,8 @@ interface CorporateAttrs {
 interface CorporateDoc extends mongoose.Document {
   title: string;
   content: string;
+  category: string;
+  active: boolean;
   userId: string;
   churchId: string;
   version: number;
@@ -28,6 +32,15 @@ const corporateSchema = new mongoose.Schema({
   content: {
     type: String,
     required: true
+  },
+  category: {
+    type: String,
+    required: true
+  },
+  active: {
+    type: Boolean,
+    required: true,
+    default: true
   },
   userId: {
     type: String,

@@ -22,11 +22,14 @@ router.post(
       throw new NotAuthorizedError();
     }
 
-    const { title, content } = req.body;
+    const { title, content, category } = req.body;
+    const active = true;
 
     const corporate = Corporate.build({
       title,
       content,
+      category,
+      active,
       userId: req.currentUser!.id,
       churchId: req.currentUser!.churchId,
     });
@@ -35,6 +38,8 @@ router.post(
       id: corporate.id,
       title: corporate.title,
       content: corporate.content,
+      category: corporate.category,
+      active: corporate.active,
       userId: corporate.userId,
       churchId: corporate.churchId,
       version: corporate.version

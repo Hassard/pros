@@ -10,6 +10,7 @@ import { indexCorporateRouter } from './routes/index';
 import { createCorporateRouter } from './routes/new';
 import { updateCorporateRouter } from './routes/update';
 import { showCorporateRouter } from './routes/show';
+import { updateStatusCorporateRouter } from './routes/status'
 
 const app = express();
 app.set('trust proxy', true);
@@ -27,6 +28,7 @@ app.use(indexCorporateRouter);
 app.use(createCorporateRouter);
 app.use(updateCorporateRouter);
 app.use(showCorporateRouter);
+app.use(updateStatusCorporateRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();

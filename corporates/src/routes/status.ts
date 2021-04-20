@@ -9,15 +9,16 @@ import { natsWrapper } from '../nats-wrapper';
 const router = express.Router();
 
 router.put(
-  '/api/corporates/update/:id', 
+  '/api/corporates/status/', 
   requireAuth, 
   [
-    body('title').not().isEmpty().withMessage('Title is required'),
-    body('content').not().isEmpty().withMessage('Content is required')
+    body('id').not().isEmpty().withMessage('Id is required'),
+    body('active').not().isEmpty().withMessage('Status is required')
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const corporate = await Corporate.findById(req.params.id);
+    console.log(req.body);
+    const corporate = await Corporate.findById(req.body.id);
 
     if (!corporate) {
       throw new NotFoundError();
@@ -28,9 +29,7 @@ router.put(
     }
 
     corporate.set({
-      title: req.body.title,
-      content: req.body.content,
-      category: req.body.category
+      active: req.body.active
     });
     await corporate.save();
     new CorporateUpdatedPublisher(natsWrapper.client).publish({
@@ -48,4 +47,4 @@ router.put(
   }
 );
 
-export { router as updateCorporateRouter };
+export { router as updateStatusCorporateRouter };
