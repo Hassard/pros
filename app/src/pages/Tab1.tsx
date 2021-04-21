@@ -1,8 +1,15 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import { useContext } from 'react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButton } from '@ionic/react';
 import './Tab1.css';
 
+import AuthContext from '../AuthContext';
+import { useHistory } from 'react-router';
+
 const Tab1: React.FC = () => {
+
+  const { authValues, logout } = useContext(AuthContext);
+  const history = useHistory();
+
   return (
     <IonPage>
       <IonHeader>
@@ -10,13 +17,18 @@ const Tab1: React.FC = () => {
           <IonTitle>Tab 1</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent fullscreen>
+      <IonContent fullscreen className="ion-padding">
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Tab 1</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <ExploreContainer name="Tab 1 page" />
+        <div>{JSON.stringify(authValues.user)}</div>
+        <IonButton onClick={async () => {
+          await logout();
+          history.replace("/login");
+        }}
+        >Logout</IonButton>
       </IonContent>
     </IonPage>
   );
